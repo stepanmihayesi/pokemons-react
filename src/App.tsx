@@ -1,33 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import /* React,  */{ useState, useEffect } from 'react'
 import './App.css'
+import PokemonList from './PokemonList'
+import axios, { Canceler } from 'axios'
+import Pagination from './Pagination'
+
+interface Pokemon {
+  avatar: string
+  name: string
+  type: string
+}
+
+interface PokemonListProps {
+  pokemon: Pokemon;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pokemon, setPokemon] = useState()
+  const [currentPageUrl, setCurrentPageUrl] = useState("https://pokeapi.co/api/v2/pokemon")
+  const [nextPageUrl, setNextPageUrl] = useState()
+  const [prevPageUrl, setPrevPageUrl] = useState()
+  const [loading, setLoading] = useState(true)
 
+  useEffect(() => {
+    const getPokemon = async () =>{
+      setLoading(true)
+      let cancel: Canceler
+      axios.get(currentPageUrl, {
+        cancelToken : new axios.CancelToken(c => cancel = c )
+      }).then(res => {
+        setLoading(false)
+        setNextPageUrl(res.data.next)
+        setPrevPageUrl(res.data.previous)
+        
+        setPokemon(res.data.results.map((pokemon : Pokemon ) => pokemon.name ))
+        console.log('pokemon', pokemon);
+      })
+      return () => cancel()
+    }
+    getPokemon()
+  }, [currentPageUrl])
+  
+  function gotoNextPage() {
+    setCurrentPageUrl(nextPageUrl)
+  }
+  function gotoPrevPage() {
+    setCurrentPageUrl(prevPageUrl)
+  }
+  if(loading) return "loading..."
+  // loading && "loading..."
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <PokemonList pokemon={pokemon} />
+      <Pagination 
+        gotoNextPage={nextPageUrl ? gotoNextPage : null}
+        gotoPrevPage={prevPageUrl ? gotoPrevPage : null}
+      />
     </>
   )
 }
