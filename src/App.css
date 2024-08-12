@@ -4,18 +4,20 @@
   padding: 2rem;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
+.card {
   will-change: filter;
   transition: filter 300ms;
+  border-radius: 28px;
+  line-height: 1em;
+  margin: 10px auto;
+  padding: 5px 0;
+  width: 120px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.card:hover {
+  filter: drop-shadow(0 0 2em #de9228aa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.card.react:hover {
+  filter: drop-shadow(0 0 2em #1d4e5caa);
 }
 
 @keyframes logo-spin {
@@ -28,7 +30,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
+  a:nth-of-type(2) .card {
     animation: logo-spin infinite 20s linear;
   }
 }
@@ -40,3 +42,56 @@
 .read-the-docs {
   color: #888;
 }
+
+.rock {
+  background-color: rgb(147, 82, 82);
+}
+.ghost {
+  background-color: rgb(245, 245, 245);
+}
+.electric {
+  background-color: rgb(253, 253, 163);
+}
+.bug {
+  background-color: rgb(192, 167, 69);
+}
+.poison {
+  background-color: rgb(13, 225, 2);
+}
+.normal {
+  background-color: rgb(232, 220, 225);
+}
+.fairy {
+  background-color: rgb(222, 155, 182);
+}
+.fire {
+  background-color: rgb(205, 103, 103);
+}
+.grass {
+  background-color: rgb(59, 149, 77);
+}
+.ground {
+  background-color: rgb(188, 192, 190);
+}
+.water {
+  background-color: rgb(85, 160, 192);
+}
+.fighting {
+  background-color: rgb(132, 54, 2);
+}
+.psychic {
+  background-color: rgb(181, 0, 213);
+}
+.dragon {
+  background-color: rgb(159, 93, 93);
+}
+.dark {
+  background-color: rgb(118, 113, 127);
+}
+.ice {
+  background-color: rgb(230, 222, 245);
+}
+.steel {
+  background-color: rgb(220, 220, 220);
+}
+
